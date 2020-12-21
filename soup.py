@@ -14,19 +14,24 @@ found = False
 
 driver = webdriver.Chrome(config['driver-path'], )
 
-driver.get(URL)
-time.sleep(0.5)
-driver.find_element_by_id('dismiss-cookies-cta').click()
-time.sleep(0.5)
 
-while not found:
-    time.sleep(1)
-    driver.refresh()
+def main():
+    driver.get(URL)
+    time.sleep(0.5)
+    driver.find_element_by_id('dismiss-cookies-cta').click()
+    time.sleep(0.5)
 
-    try:
-        driver.find_element_by_id('products-load-all').click()
-    except:
-        pass
+    while not found:
+        try:
+            check_stock()
+        except:
+            pass
+        driver.refresh()
+        time.sleep(config['wait-seconds'])
+
+
+def check_stock():
+    driver.find_element_by_id('products-load-all').click()
     time.sleep(0.1)
 
     browse = driver.find_element_by_id('products-selector')
@@ -45,7 +50,5 @@ while not found:
             break
 
 
-# driver.find_element_by_tag_name('body').send_keys(Keys.COMMAND + 't')
-# print(drivera.find_element_by_tag_name('body'))
-# print(len(items))
-
+if __name__ == "__main__":
+    main()
