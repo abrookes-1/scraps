@@ -34,6 +34,9 @@ def main():
 
         time.sleep(config['wait-seconds'])
 
+    # after found
+    wait()
+
 
 def check_stock(driver):
     driver.find_element_by_id('products-load-all').click()
@@ -60,6 +63,10 @@ def check_stock(driver):
 def checkout(driver):
     driver.get(checkoutURL)
 
+
+def wait():
+    while True:
+        time.sleep(1)
 
 
 if __name__ == "__main__":
