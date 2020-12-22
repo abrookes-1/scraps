@@ -22,15 +22,15 @@ def main():
     time.sleep(0.5)
 
     while not found:
-        try:
-            found = check_stock(driver)
-        except:
-            pass
-
         driver.refresh()
         if 'FREITAG' not in driver.find_element_by_tag_name('title').get_attribute('innerHTML'):
             # assume 404
             driver.execute_script(f"window.open('{config['alarm-url']}');")
+
+        try:
+            found = check_stock(driver)
+        except:
+            pass
 
         time.sleep(config['wait-seconds'])
 
