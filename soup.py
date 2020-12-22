@@ -23,9 +23,7 @@ def main():
 
     while not found:
         driver.refresh()
-        if 'FREITAG' not in driver.find_element_by_tag_name('title').get_attribute('innerHTML'):
-            # assume 404
-            driver.execute_script(f"window.open('{config['alarm-url']}');")
+        # check_good_result(driver)
 
         try:
             found = check_stock(driver)
@@ -58,6 +56,12 @@ def check_stock(driver):
             return True
 
     return False
+
+
+def check_good_result(driver):
+    if 'FREITAG' not in driver.find_element_by_tag_name('title').get_attribute('innerHTML'):
+        # assume 404
+        driver.execute_script(f"window.open('{config['alarm-url']}');")
 
 
 def checkout(driver):
