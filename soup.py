@@ -44,22 +44,23 @@ def check_stock(driver):
     items = browse.find_elements_by_tag_name('li')
 
     for item in items:
-        color = item.get_attribute('data-dimension17')
-        if config['color'] in color:
-            url = item.find_element_by_tag_name('a').get_attribute('href')
-            driver.get(url)
-            time.sleep(1)
-            driver.find_element_by_id('product-addtocart').click()
-            time.sleep(1)
-            driver.execute_script(f"window.open('{config['alarm-url']}');")
-            checkout(driver)
-            return True
+        description = item.get_attribute('data-dimension17')
+        for color in config['colors']:
+            if color in description:
+                url = item.find_element_by_tag_name('a').get_attribute('href')
+                driver.get(url)
+                time.sleep(1)
+                driver.find_element_by_id('product-addtocart').click()
+                time.sleep(1)
+                driver.execute_script(f"window.open('{config['alarm-url']}');")
+                checkout(driver)
+                return True
 
     return False
 
 
 def check_good_result(driver):
-    if 'FREITAG' not in driver.find_element_by_tag_name('title').get_attribute('innerHTML'):
+    if 'FIVE-O' not in driver.find_element_by_tag_name('title').get_attribute('innerHTML'):
         # assume 404
         driver.execute_script(f"window.open('{config['alarm-url']}');")
 

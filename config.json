@@ -1,5 +1,5 @@
 {
-  "color": "black",
+  "colors": ["black","white","red"],
   "driver-path": "./chromedriver",
   "alarm-url": "https://www.youtube.com/watch?v=RYPuC6_UGNA",
   "wait-seconds": 5
